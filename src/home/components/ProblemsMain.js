@@ -9,7 +9,7 @@ const ProblemsMain = () => {
     const fetchData = async () => {
         const problemsCount = 4;
         //get 3 random problems
-        const res = await fetch(`/api/problems/random/${problemsCount}`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/random/${problemsCount}`);
         const data = await res.json();
         if (res.status === 200) {
             setProblems(data.problems);
