@@ -13,7 +13,7 @@ const EditProfile = () => {
     const handleInput = (e) => setUser({ ...user, [e.target.name]: e.target.value });
 
     const fetchData = async () => {
-        const res = await fetch("/user/info");
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/info`);
         const data = await res.json();
         setLoading(false);
         if (res.status === 200) {
@@ -25,7 +25,7 @@ const EditProfile = () => {
 
     const saveDetail = async () => {
         const { username, name, education, gender, location, birthday } = user;
-        const res = await fetch("/user/edit", {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ username, name, education, gender, location, birthday }),

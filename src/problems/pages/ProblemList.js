@@ -14,8 +14,8 @@ const ProblemList = () => {
     const topic = pathname.split("/")[2];
 
     const fetchData = async () => {
-        const res = await fetch(`/api/problems/${topic}`);
-        const userRes = await fetch("/user/info");
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/${topic}`);
+        const userRes = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/info`);
         const data = await res.json();
         const userData = await userRes.json();
         if (res.status === 200) {
@@ -29,7 +29,7 @@ const ProblemList = () => {
     };
 
     const editProblems = async (probs) => {
-        const res = await fetch("/api/problems/user/edit", {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/user/edit`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ problems: [...probs] }),

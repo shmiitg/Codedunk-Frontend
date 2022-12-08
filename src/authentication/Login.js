@@ -42,7 +42,7 @@ const Login = () => {
 
     const userLogin = async () => {
         const { key, password } = user;
-        const res = await fetch("/auth/login", {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ key, password }),

@@ -14,9 +14,9 @@ const ProblemCards = () => {
     }
 
     const fetchData = async () => {
-        const res = await fetch("/api/topics");
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/topics`);
         const data = await res.json();
-        const userProbs = await fetch("/api/problems/user");
+        const userProbs = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/user`);
         const userData = await userProbs.json();
 
         const tops = [];

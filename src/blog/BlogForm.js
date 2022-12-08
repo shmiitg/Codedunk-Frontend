@@ -14,7 +14,7 @@ const BlogForm = () => {
 
     const blogSave = async () => {
         const { title, description, content } = blogArticle;
-        const res = await fetch("/api/blog/save", {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/save`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title, description, content }),

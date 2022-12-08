@@ -11,7 +11,7 @@ const DropDown = () => {
     const { userName, setUserName } = useContext(UserContext);
 
     const logOut = async () => {
-        const res = await fetch("/auth/logout");
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/logout`);
         const data = await res.json();
         if (res.status === 200) {
             setDropDown((prev) => !prev);

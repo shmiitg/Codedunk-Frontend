@@ -8,7 +8,7 @@ const Interview = () => {
     const [interviews, setInterviews] = useState([]);
 
     const fetchData = async () => {
-        const res = await fetch("/api/interviews");
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/interviews`);
         const data = await res.json();
         setLoading(false);
         if (res.status === 200) {

@@ -36,7 +36,7 @@ function App() {
     const { setUserId } = useContext(UserContext);
     const [loading, setLoading] = useState(true);
     const fetchData = async () => {
-        const res = await fetch("https://code-dunk-backend.onrender.com/user/info");
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/info`);
         const data = await res.json();
         if (res.status === 200) {
             setUserName(data.user.username);

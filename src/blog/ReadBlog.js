@@ -14,7 +14,7 @@ const ReadBlog = () => {
     const [blog, setBlog] = useState({ title: "", description: "", content: "", author: "" });
     const [date, setDate] = useState("");
     const fetchBlog = async () => {
-        const res = await fetch(`/api/blog/read/${link}`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/read/${link}`);
         const data = await res.json();
         setLoading(false);
         if (res.status === 200) {
@@ -28,7 +28,7 @@ const ReadBlog = () => {
     };
 
     const deleteBlog = async () => {
-        const res = await fetch(`/api/blog/delete/${link}`, {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/delete/${link}`, {
             method: "DELETE",
             headers: { "Content-type": "application/json" },
         });

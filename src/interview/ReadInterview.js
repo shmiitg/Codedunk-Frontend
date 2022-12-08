@@ -14,7 +14,7 @@ const ReadInterview = () => {
     const [interview, setInterview] = useState({ title: "", company: "", content: "", author: "" });
     const [date, setDate] = useState("");
     const fetchInterview = async () => {
-        const res = await fetch(`/api/interview/read/${link}`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/interview/read/${link}`);
         const data = await res.json();
         setLoading(false);
         if (res.status === 200) {
@@ -28,7 +28,7 @@ const ReadInterview = () => {
     };
 
     const deleteInterview = async () => {
-        const res = await fetch(`/api/interview/delete/${link}`, {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/interview/delete/${link}`, {
             method: "DELETE",
             headers: { "Content-type": "application/json" },
         });

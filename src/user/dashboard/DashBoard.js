@@ -24,14 +24,14 @@ const Dashboard = () => {
 
     const fetchData = async () => {
         const username = search.split("=")[1];
-        const resUser = await fetch(`/api/profile/dashboard?user=${username}`);
+        const resUser = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/profile/dashboard?user=${username}`);
         if (resUser.status === 404) {
             setLoading(false);
             setError(true);
             return;
         }
         const dataUser = await resUser.json();
-        const resProblems = await fetch("/api/problems");
+        const resProblems = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems`);
         const dataProblems = await resProblems.json();
 
         if (resUser.status === 200 && resProblems.status === 200) {

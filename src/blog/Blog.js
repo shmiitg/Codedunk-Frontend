@@ -8,7 +8,7 @@ const Blog = () => {
     const [blogs, setBlogs] = useState([]);
 
     const fetchData = async () => {
-        const res = await fetch('/api/blogs');
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blogs`);
         const data = await res.json();
         setLoading(false);
         if (res.status === 200) {

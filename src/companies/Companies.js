@@ -9,7 +9,7 @@ const Companies = () => {
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
-        const res = await fetch("/api/companies");
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/companies`);
         const data = await res.json();
         if (res.status === 200) {
             setCompanies(data.companies);

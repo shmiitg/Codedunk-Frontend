@@ -8,7 +8,7 @@ const BlogEdit = () => {
     const link = pathname.split("/")[3];
     const [blogArticle, setBlogArticle] = useState({ title: "", description: "", content: "" });
     const fetchData = async () => {
-        const res = await fetch(`/api/blog/edit/${link}`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/edit/${link}`);
         const data = await res.json();
         if (res.status === 200) {
             setBlogArticle(data.blog);
@@ -21,7 +21,7 @@ const BlogEdit = () => {
     };
     const blogSave = async () => {
         const { title, description, content } = blogArticle;
-        const res = await fetch(`/api/blog/edit/${link}`, {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/edit/${link}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title, description, content }),

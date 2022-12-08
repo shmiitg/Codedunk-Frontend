@@ -19,7 +19,7 @@ const ProblemSolve = () => {
 
     const fetchData = async () => {
         const problemName = pathname.split("/")[2];
-        const res = await fetch(`/api/problem/${problemName}`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problem/${problemName}`);
         const data = await res.json();
         if (res.status === 200) {
             setProblem({ ...data.problem });
@@ -37,7 +37,7 @@ const ProblemSolve = () => {
 
     const upvoteProblem = async () => {
         const problemName = pathname.split("/")[2];
-        const res = await fetch(`/api/problems/upvote/${problemName}`, {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/upvote/${problemName}`, {
             method: "PUT",
         });
         const data = await res.json();

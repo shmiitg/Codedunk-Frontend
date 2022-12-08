@@ -13,7 +13,7 @@ const CompanyProblems = () => {
     const [problems, setProblems] = useState([]);
 
     const fetchData = async () => {
-        const res = await fetch(`/api/problems/company/${company}`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/company/${company}`);
         const data = await res.json();
         if (res.status === 200) {
             setProblems(data.problems);

@@ -12,7 +12,7 @@ const InterviewEdit = () => {
         content: "",
     });
     const fetchData = async () => {
-        const res = await fetch(`/api/interview/edit/${link}`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/interview/edit/${link}`);
         const data = await res.json();
         if (res.status === 200) {
             setInterviewArticle(data.interview);
@@ -25,7 +25,7 @@ const InterviewEdit = () => {
     };
     const interviewSave = async () => {
         const { title, company, content } = interviewArticle;
-        const res = await fetch(`/api/interview/edit/${link}`, {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/interview/edit/${link}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ title, company, content }),

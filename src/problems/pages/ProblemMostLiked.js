@@ -10,7 +10,7 @@ const ProblemMostLiked = () => {
     const [problems, setProblems] = useState([]);
 
     const fetchData = async () => {
-        const res = await fetch(`/api/problems/most_liked/10`);
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/most_liked/10`);
         const data = await res.json();
         if (res.status === 200) {
             setProblems(data.problems);
