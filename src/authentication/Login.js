@@ -49,7 +49,8 @@ const Login = () => {
         });
         const data = await res.json();
         if (res.status === 200) {
-            setUserName(data.userName);
+            setUserName(user.key);
+            localStorage.setItem("usertoken", data.token);
             navigate("/");
         } else {
             window.alert(data.error);

@@ -7,6 +7,7 @@ const BlogEdit = () => {
     const { pathname } = useLocation();
     const link = pathname.split("/")[3];
     const [blogArticle, setBlogArticle] = useState({ title: "", description: "", content: "" });
+
     const fetchData = async () => {
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/edit/${link}`);
         const data = await res.json();
@@ -14,16 +15,26 @@ const BlogEdit = () => {
             setBlogArticle(data.blog);
         }
     };
+
     const handleBlogInput = (e) => {
         let value = e.target.value;
         if (value === "\n") value = "</br>";
         setBlogArticle({ ...blogArticle, [e.target.name]: value });
     };
+
     const blogSave = async () => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            window.alert("Login to continue...");
+            return;
+        }
         const { title, description, content } = blogArticle;
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/edit/${link}`, {
             method: "PUT",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
             body: JSON.stringify({ title, description, content }),
         });
         const data = await res.json();

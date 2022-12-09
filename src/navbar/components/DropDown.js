@@ -11,15 +11,19 @@ const DropDown = () => {
     const { userName, setUserName } = useContext(UserContext);
 
     const logOut = async () => {
-        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/logout`);
-        const data = await res.json();
-        if (res.status === 200) {
-            setDropDown((prev) => !prev);
-            navigate("/login");
-            setUserName(null);
-        } else {
-            window.alert(data.error);
-        }
+        // const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/logout`);
+        // const data = await res.json();
+        // if (res.status === 200) {
+        //     setDropDown((prev) => !prev);
+        //     navigate("/login");
+        //     setUserName(null);
+        // } else {
+        //     window.alert(data.error);
+        // }
+        localStorage.removeItem("usertoken");
+        setDropDown((prev) => !prev);
+        navigate("/login");
+        setUserName(null);
     };
     const dropDownRef = useRef();
 

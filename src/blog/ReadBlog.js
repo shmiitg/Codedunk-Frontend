@@ -28,9 +28,17 @@ const ReadBlog = () => {
     };
 
     const deleteBlog = async () => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            window.alert("Login to continue...");
+            return;
+        }
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/delete/${link}`, {
             method: "DELETE",
-            headers: { "Content-type": "application/json" },
+            headers: {
+                "Content-type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
         });
         const data = await res.json();
         if (res.status === 200) {

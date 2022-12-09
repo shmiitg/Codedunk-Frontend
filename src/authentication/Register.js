@@ -19,6 +19,7 @@ const Register = () => {
         const data = await res.json();
         if (res.status === 200) {
             setUserName(data.userName);
+            localStorage.setItem("usertoken", data.token);
             navigate("/");
         } else {
             window.alert(data.error);

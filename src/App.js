@@ -36,7 +36,20 @@ function App() {
     const { setUserId } = useContext(UserContext);
     const [loading, setLoading] = useState(true);
     const fetchData = async () => {
-        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/info`);
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            setUserName(null);
+            setUserId(null);
+            setLoading(false);
+            return;
+        }
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/info`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
         const data = await res.json();
         if (res.status === 200) {
             setUserName(data.user.username);

@@ -13,10 +13,18 @@ const BlogForm = () => {
     };
 
     const blogSave = async () => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            window.alert("Login to continue...");
+            return;
+        }
         const { title, description, content } = blogArticle;
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/blog/save`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
             body: JSON.stringify({ title, description, content }),
         });
         const data = await res.json();
