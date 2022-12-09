@@ -36,9 +36,18 @@ const ProblemSolve = () => {
     };
 
     const upvoteProblem = async () => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            window.alert("Login to upvote...");
+            return;
+        }
         const problemName = pathname.split("/")[2];
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/upvote/${problemName}`, {
             method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
         });
         const data = await res.json();
         if (res.status === 200) {
