@@ -16,9 +16,6 @@ const ProblemCards = () => {
     const fetchData = async () => {
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/topics`);
         const data = await res.json();
-        const userProbs = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/user`);
-        const userData = await userProbs.json();
-
         const tops = [];
         if (res.status === 200) {
             data.topics.forEach((topic) => {
@@ -30,9 +27,21 @@ const ProblemCards = () => {
                 });
             });
         }
-        if (userProbs.status === 200) {
-            for (let i = 0; i < tops.length; i++) {
-                tops[i].solved = intersect(userData.problems, tops[i].problems);
+        const token = localStorage.getItem('usertoken');
+        if (token) {
+            const userProbs = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/user`,
+                {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+            const userData = await userProbs.json();
+            if (userProbs.status === 200) {
+                for (let i = 0; i < tops.length; i++) {
+                    tops[i].solved = intersect(userData.problems, tops[i].problems);
+                }
             }
         }
         setTopics(tops);

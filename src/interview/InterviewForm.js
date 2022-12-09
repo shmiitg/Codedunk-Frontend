@@ -17,10 +17,18 @@ const InterviewForm = () => {
     };
 
     const interviewSave = async () => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            window.alert("Login to continue...");
+            return;
+        }
         const { title, company, content } = interviewArticle;
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/interview/save`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
             body: JSON.stringify({ title, company, content }),
         });
         const data = await res.json();

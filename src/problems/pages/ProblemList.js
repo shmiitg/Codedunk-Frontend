@@ -14,8 +14,20 @@ const ProblemList = () => {
     const topic = pathname.split("/")[2];
 
     const fetchData = async () => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            window.alert("You need a token");
+            setLoading(false);
+            return;
+        }
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/${topic}`);
-        const userRes = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/info`);
+        const userRes = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/info`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+        });
         const data = await res.json();
         const userData = await userRes.json();
         if (res.status === 200) {
@@ -29,9 +41,16 @@ const ProblemList = () => {
     };
 
     const editProblems = async (probs) => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            return 401;
+        }
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/problems/user/edit`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
             body: JSON.stringify({ problems: [...probs] }),
         });
         return res.status;

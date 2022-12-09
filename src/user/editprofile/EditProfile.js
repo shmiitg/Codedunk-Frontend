@@ -24,10 +24,18 @@ const EditProfile = () => {
     };
 
     const saveDetail = async () => {
+        const token = localStorage.getItem('usertoken');
+        if (!token) {
+            window.alert("You need a token");
+            return;
+        }
         const { username, name, education, gender, location, birthday } = user;
         const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/user/edit`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
             body: JSON.stringify({ username, name, education, gender, location, birthday }),
         });
         const data = await res.json();
